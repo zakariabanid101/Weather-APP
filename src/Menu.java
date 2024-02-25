@@ -81,12 +81,19 @@ public class Menu {
 
             connect_Db.updateCity(cityIdToUpdate, newTemperature, newHumidity, newWindSpeed);
 
-            System.out.println("City information updated successfully!");
         } else {
             System.out.println("City with ID " + cityIdToUpdate + " does not exist.");
         }
     }
+    void deleteCity() throws SQLException {
+        System.out.print("Enter ID of the city to delete: ");
+        int cityId = new Scanner(System.in).nextInt();
+        connect_Db.deleteCity(cityId);
 
+    }
+
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     public void cityAddHistory() throws SQLException {
         Scanner scanner = new Scanner(System.in);
@@ -100,6 +107,8 @@ public class Menu {
         int temperature = scanner.nextInt();
         connect_Db.addCityHistory(new CityHistory(historicalDataId, cityId, eventDate, temperature));
     }
+
+
     public void  displayAllCitiesHistory() throws SQLException {
         List<CityHistory> citiesHistory = connect_Db.getAllCitiesHistory();
 
@@ -114,6 +123,13 @@ public class Menu {
             System.out.println("-------------------------------------------");
         }
         System.out.println("*******************************************");
+    }
+
+    void deleteCityHistory() throws SQLException {
+        System.out.print("Enter ID of the city to delete: ");
+        int historyId = new Scanner(System.in).nextInt();
+        connect_Db.deleteCityHistory(historyId);
+
     }
 
 //***********************************************************************************************************************
@@ -139,15 +155,18 @@ public class Menu {
                 displayAllCities();
                 break;
             case 3:
-                updateCityInfo();
+                deleteCity();
                 break;
             case 4:
+                updateCityInfo();
+                break;
+            case 5:
                 System.out.println("*******************************************");
                 System.out.println("********* WELCOME TO MANAGER MENU *********");
                 System.out.println("**          -1- ADD CITY HISTORY         **");
                 System.out.println("**          -2- DISPLAY CITIES HISTORIES **");
-                System.out.println("**          -2- UPDATE CITY HISTORY      **");
-                System.out.println("**          -3- DELETE CITY HISTORY      **");
+                System.out.println("**          -3- UPDATE CITY HISTORY      **");
+                System.out.println("**          -4- DELETE CITY HISTORY      **");
                 System.out.println("*******************************************");
                 System.out.println("*******************************************");
                 int choice = new Scanner(System.in).nextInt();
@@ -158,9 +177,12 @@ public class Menu {
                     case 2:
                         displayAllCitiesHistory();
                         break;
+                    case 4:
+                        deleteCityHistory();
+                        break;
                 }
                 break;
-            case 5:
+            case 6:
                 menu();
                 break;
 

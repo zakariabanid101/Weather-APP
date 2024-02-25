@@ -88,6 +88,20 @@ public class connect_Db {
             throw new RuntimeException(e);
         }
     }
+
+    public static void deleteCity(int cityId) throws SQLException {
+        String sql = "DELETE FROM City WHERE cityId = ?";
+        Connection connection = getConnection();
+        PreparedStatement statement = connection.prepareStatement(sql);
+        statement.setInt(1, cityId);
+        statement.executeUpdate();
+        System.out.println("City deleted successfully!");
+        connection.close();
+        statement.close();
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     public static void addCityHistory(CityHistory history) throws SQLException {
         String sql = "INSERT INTO cityHistory(`historicalDataId`, `cityId`, `eventDate`, `temperature`) VALUES(?,?,?,?)";
         Connection connection = getConnection();
@@ -122,6 +136,17 @@ public class connect_Db {
         statement.close();
         resultSet.close();
         return citiesHistory;
+    }
+
+    public static void deleteCityHistory(int historyId) throws SQLException {
+        String sql = "DELETE FROM cityhistory WHERE historicalDataId = ?";
+        Connection connection = getConnection();
+        PreparedStatement statement = connection.prepareStatement(sql);
+        statement.setInt(1, historyId);
+        statement.executeUpdate();
+        System.out.println("City deleted successfully!");
+        connection.close();
+        statement.close();
     }
 }
 
