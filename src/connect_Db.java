@@ -138,6 +138,22 @@ public class connect_Db {
         return citiesHistory;
     }
 
+    public static void updateCityHistory(int cityIdHistoryToUpdate, int newTemperature, String eventDate) {
+        String sql = "UPDATE cityhistory SET eventDate=?, temperature=? WHERE cityIdHistoryToUpdate=?";
+        try (Connection connection = getConnection();
+             PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setString(1, eventDate);
+            statement.setInt(2, newTemperature);
+
+            int rows = statement.executeUpdate();
+            if (rows > 0) {
+                System.out.println("City information updated successfully!");
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     public static void deleteCityHistory(int historyId) throws SQLException {
         String sql = "DELETE FROM cityhistory WHERE historicalDataId = ?";
         Connection connection = getConnection();

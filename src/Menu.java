@@ -116,13 +116,29 @@ public class Menu {
         System.out.println("********* LIST OF ALL ADDED CITIES ********");
         for (CityHistory cityHistory : citiesHistory) {
             
-            System.out.println("Data ID" + cityHistory.historicalDataId);
-            System.out.println("City ID: " + cityHistory.cityId);
-            System.out.println("Event Data" + cityHistory.eventDate);
-            System.out.println("Temperature: " + cityHistory.temperature);
+            System.out.println("Data ID : " + cityHistory.historicalDataId);
+            System.out.println("City ID : " + cityHistory.cityId);
+            System.out.println("Event Data : " + cityHistory.eventDate);
+            System.out.println("Temperature : " + cityHistory.temperature);
             System.out.println("-------------------------------------------");
         }
         System.out.println("*******************************************");
+    }
+    public void updateCityData() throws SQLException {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Enter the historical Data Id to update: ");
+        int cityIdHistoryToUpdate = scanner.nextInt();
+        //if (connect_Db.cityExists(cityIdToUpdate)) {
+            System.out.println("Enter new Temperature: ");
+            int newTemperature = scanner.nextInt();
+            System.out.println("Enter new Event Day: ");
+            String eventDate = scanner.next();
+
+            connect_Db.updateCityHistory(cityIdHistoryToUpdate, newTemperature, eventDate);
+
+        //} else {
+        //System.out.println("City with ID " + cityIdHistoryToUpdate + " does not exist.");
+        //}
     }
 
     void deleteCityHistory() throws SQLException {
@@ -141,9 +157,9 @@ public class Menu {
         System.out.println("**          -1- ADD CITY                 **");
         System.out.println("**          -2- DISPLAY CITIES           **");
         System.out.println("**          -3- UPDATE CITY INFO         **");
-        System.out.println("**          -3- DELETE CITY              **");
-        System.out.println("**          -4- MANAGE CITIES HISTORY    **");
-        System.out.println("**          -5- BACK TO GENERAL MENU     **");
+        System.out.println("**          -4- DELETE CITY              **");
+        System.out.println("**          -5- MANAGE CITIES HISTORY    **");
+        System.out.println("**          -6- BACK TO GENERAL MENU     **");
         System.out.println("*******************************************");
         System.out.println("*******************************************");
         mChoice = new Scanner(System.in).nextInt();
@@ -176,6 +192,9 @@ public class Menu {
                         break;
                     case 2:
                         displayAllCitiesHistory();
+                        break;
+                    case 3:
+                        updateCityData();
                         break;
                     case 4:
                         deleteCityHistory();
