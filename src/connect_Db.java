@@ -19,7 +19,7 @@ public class connect_Db {
     }
 
     public static void addCity(City city) throws SQLException {
-        String sql = "INSERT INTO city(Id, Name, Temperatur, Humidity, WindSpeed) VALUES(?,?,?,?,?)";
+        String sql = "INSERT INTO city(cityId, cityName, cityTemperature, cityHumidity, cityWindSpeed) VALUES(?,?,?,?,?)";
         Connection connection = getConnection();
         PreparedStatement statement = connection.prepareStatement(sql);
         statement.setInt(1, city.cityId);
@@ -44,11 +44,11 @@ public class connect_Db {
         PreparedStatement statement = connection.prepareStatement(sql);
         ResultSet resultSet = statement.executeQuery();
         while (resultSet.next()) {
-            int cityId = resultSet.getInt("Id");
-            String cityName = resultSet.getString("Name");
-            int currentTemperature = resultSet.getInt("Temperatur");
-            int currentHumidity = resultSet.getInt("Humidity");
-            int currentWindSpeed = resultSet.getInt("WindSpeed");
+            int cityId = resultSet.getInt("cityId");
+            String cityName = resultSet.getString("cityName");
+            int currentHumidity = resultSet.getInt("cityHumidity");
+            int currentTemperature = resultSet.getInt("cityTemperature");
+            int currentWindSpeed = resultSet.getInt("cityWindSpeed");
 
             cities.add(new City(cityId, cityName, currentTemperature, currentHumidity, currentWindSpeed));
         }
@@ -59,7 +59,7 @@ public class connect_Db {
     }
 
     public static boolean cityExists(int cityIdToUpdate) {
-        String sql = "SELECT Id FROM city WHERE Id=?";
+        String sql = "SELECT cityId FROM city WHERE cityId=?";
         try (Connection connection = getConnection();
              PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setInt(1, cityIdToUpdate);
@@ -72,7 +72,7 @@ public class connect_Db {
     }
 
     public static void updateCity(int cityIdToUpdate, int newTemperature, int newHumidity, int newWindSpeed) {
-        String sql = "UPDATE city SET Temperatur=?, Humidity=?, WindSpeed=? WHERE Id=?";
+        String sql = "UPDATE city SET cityTemperature=?, cityHumidity=?, cityWindSpeed=? WHERE cityId=?";
         try (Connection connection = getConnection();
              PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setInt(1, newTemperature);
