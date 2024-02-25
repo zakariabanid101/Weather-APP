@@ -4,6 +4,26 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class City {
+    public int getCityId() {
+        return cityId;
+    }
+
+    public String getCityName() {
+        return cityName;
+    }
+
+    public int getCurrentTemperature() {
+        return currentTemperature;
+    }
+
+    public int getCurrentHumidity() {
+        return currentHumidity;
+    }
+
+    public int getCurrentWindSpeed() {
+        return currentWindSpeed;
+    }
+
     int cityId; //Identifiant unique pour la ville.
     String cityName; //Nom de la ville.
     int currentTemperature; //Température actuelle.
